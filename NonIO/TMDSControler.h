@@ -10,9 +10,11 @@ namespace components
     {
         public:
             TMDSControler(Clock* c);
-            char getOutput();
-            //pre : input must be an 8 bit character
-            void setInput(char* input);
-            bool outputReady();
+            const char* getOutput();
+            void setInput(const char* input);
+            bool ready();
+
+            void processClockPlus() override{}
+            void processClockMinus() override{}
     };
 }

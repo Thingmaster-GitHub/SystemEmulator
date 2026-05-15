@@ -2,7 +2,7 @@
 #pragma once
 
 #include "TMDSProcessor.h"
-
+#include "TMDSReceiver.h"
 #include <QVector>
 #include <QDebug>
 namespace components
@@ -10,13 +10,16 @@ namespace components
     class TMDSDecoder : public TMDSProcessor
     {
     public:
-        TMDSDecoder(Component* pins);
-        void process() override;
+        TMDSDecoder(TMDS* pins,Clock* c);
+        void processClockPlus() override;
+        void processClockMinus() override{}
         const char* getOutput();
-        void setInput(char* c);//temporary
+        void setInput(QBitArray input);//temporary
+    protected:
+        bool xorop(QBitArray tmp,int i) override;
+        bool xnorop(QBitArray tmp,int i) override;
     private:
-        QBitArray undoxor();
-        QBitArray undoxnor();
+        void decodeInput();
     };
 }
 

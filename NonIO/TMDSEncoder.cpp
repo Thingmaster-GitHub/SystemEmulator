@@ -1,19 +1,27 @@
 #include "TMDSEncoder.h"
+using namespace components;
 
-components::TMDSEncoder::TMDSEncoder(Component* pins)
+TMDSEncoder::TMDSEncoder(TMDS* pins,Clock* c)
 {
+    m_clock=c;
+    m_counter=0;
     m_IO = new QVector<Component*>();
-    addConnection(pins);//index 0
+    m_dataStream = new QByteArray();
+    m_index=0;
     char tmp = 0;
     setInput(&tmp);
+    addConnection(new TMDSTransmiter(this,pins));
 }
-void components::TMDSEncoder::setInput(char* input)
+void TMDSEncoder::EncodeOutput(char* input)
 {
-
     m_data=QBitArray::fromBits(input,8);
     m_data.resize(10);
     //now to encode!
-    m_data=getOptimal();
+    bool algorithm = chooseOutput();
+    m_data=tmdsLoop(algorithm);
+
+    if(algorithm)
+        m_data.setBit(8,1);
     //check if should be inverted
 
     QBitArray inverted=m_data;
@@ -33,37 +41,21 @@ void components::TMDSEncoder::setInput(char* input)
         m_counter=r1;
 
 }
-QBitArray components::TMDSEncoder::getOptimal()
+void TMDSEncoder::setInput(const char* input)
 {
-
-    if(chooseOutput())
-        return tmdsxnor();
-    else
-        return tmdsxor();
+    m_index=0;
+    m_dataStream = new QByteArray(input);
 }
-QBitArray components::TMDSEncoder::tmdsxor()
+bool TMDSEncoder::xnorop(QBitArray tmp,int i)
 {
-    QBitArray tmp = m_data;
-    for(int i=1;i<8;i++)
-    {
-        tmp.setBit(i,tmp.at(i) ^ tmp.at(i-1));
-    }
-    tmp.setBit(8,1);
-
-    return tmp;
+    return tmp.at(i) == tmp.at(i-1);
 }
-QBitArray components::TMDSEncoder::tmdsxnor()
+bool TMDSEncoder::xorop(QBitArray tmp,int i)
 {
-    QBitArray tmp = m_data;
-    for(int i=1;i<8;i++)
-    {
-        tmp.setBit(i,tmp.at(i) == tmp.at(i-1));
-    }
-    return tmp;
+    return tmp.at(i) ^ tmp.at(i-1);
 }
 
-
-int components::TMDSEncoder::getDistanceResult(QBitArray b)
+int TMDSEncoder::getDistanceResult(QBitArray b)
 {
     int result = m_counter;
     for(int i=0;i<b.size();i++)
@@ -75,19 +67,42 @@ int components::TMDSEncoder::getDistanceResult(QBitArray b)
     }
     return result;
 }
-bool components::TMDSEncoder::chooseOutput()
+bool TMDSEncoder::chooseOutput()
 {
     //using that weird technique to chose which output is used.
     int bitSum=0;//sum of 1s in m_data
     for(int i=0;i<8;i++)
+    {
         if(m_data.at(i))
+        {
             bitSum++;
-    return false;
-    //return bitSum>4||(bitSum==4&&!m_data.at(0));
+        }
+    }
 
+    return !(bitSum>4||(bitSum==4&&!m_data.at(0)));
 }
-
-void components::TMDSEncoder::process()
+TMDSTransmiter* TMDSEncoder::getTransmiter()
 {
+    return dynamic_cast<TMDSTransmiter*>(m_IO->at(0));
+}
+bool TMDSEncoder::ready()
+{
+    return m_index==m_dataStream->size();
+}
+void TMDSEncoder::processClockPlus()
+{
+    char tmp;
+    if(m_index!=m_dataStream->size())
+    {
+        tmp = m_dataStream->at(m_index);
+    }
+    else
+    {
+        tmp = (char)0;
+    }
+    EncodeOutput(&tmp);
+    getTransmiter()->setInput(m_data);
+    if(m_index<m_dataStream->size())
+        m_index++;
 
 }

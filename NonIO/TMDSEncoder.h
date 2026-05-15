@@ -2,25 +2,38 @@
 #pragma once
 
 #include "TMDSProcessor.h"
+#include "TMDSTransmiter.h"
+
 #include <QVector>
 #include <QtNumeric>
 #include <QDebug>
+#include <QByteArray>
 namespace components
 {
     class TMDSEncoder : public TMDSProcessor
     {
     public:
-        TMDSEncoder(Component* pins);
-        void process() override;
-        void setInput(char* input);
+        TMDSEncoder(TMDS* pins,Clock* c);
+        void processClockPlus() override;
+        void processClockMinus() override{}
+
+        void setInput(const char* input);
+        bool ready();
+    protected:
+        bool xorop(QBitArray tmp,int i) override;
+        bool xnorop(QBitArray tmp,int i) override;
     private:
+        void EncodeOutput(char* input);
+        TMDSTransmiter* getTransmiter();
+        void sendInput();
         //dc balance maintnence
-        QBitArray tmdsxor();
-        QBitArray tmdsxnor();
+        int m_counter; //counts # on ones minus number of zeros
+
         int getDistanceResult(QBitArray b);
-        QBitArray getOptimal();
         //returns true if option 2 should be used (xnor)
         bool chooseOutput();
+        //TODO give this a data stream to process across clock cycles!
+
     };
 }
 

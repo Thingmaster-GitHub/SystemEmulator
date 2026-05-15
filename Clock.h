@@ -1,21 +1,26 @@
 //arguably the most important part of the project
 //has a way of simulating different clock speeds by ustilizing their ratios
 #pragma once
-
+#include <QDebug>
 namespace components
 {
     class Clock
     {
     public:
         // @param - c number of calls to tick before it is ran
-        Clock(int c) :  m_cycles(c),  m_tickCount(0), m_state(true){}
+        Clock(int c) :  m_cycles(c),  m_tickCount(1), m_state(true){}
 
         //initializes m_cycles to a default value of 100
-        Clock() :  m_cycles(100),  m_tickCount(0), m_state(true){}
+        Clock() :  m_cycles(100),  m_tickCount(1), m_state(true){}
         void tick()
         {
             if(m_cycles==m_tickCount)
+            {
                 m_state=!m_state;
+                m_tickCount=1;
+            }
+            else
+                m_tickCount++;
         }
         bool getState()
         {
@@ -25,6 +30,10 @@ namespace components
         void setSpeed(int numCycles)
         {
             m_cycles=numCycles;
+        }
+        int getSpeed()
+        {
+            return m_cycles;
         }
     private:
         int m_cycles;//the number of calls to the tick function before it is truely ran

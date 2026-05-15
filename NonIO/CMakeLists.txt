@@ -4,6 +4,9 @@ set(nonio_SRCS
     TMDSControler.cpp
     TMDSEncoder.cpp
     TMDSDecoder.cpp
+    TMDSComunicator.cpp
+    TMDSTransmiter.cpp
+    TMDSReceiver.cpp
 )
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Test Qml Quick)
 

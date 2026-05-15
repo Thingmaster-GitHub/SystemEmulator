@@ -1,5 +1,7 @@
 #include "NonIOComponent.h"
-int components::NonIOComponent::findIOComponent(int n)
+using namespace components;
+
+int NonIOComponent::findIOComponent(int n)
 {
     int count=0;
     for(int i=0;i<m_IO->size();i++)
