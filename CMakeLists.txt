@@ -10,6 +10,7 @@ add_subdirectory(NonIO/)
 add_subdirectory(Examples/)
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Test Qml Quick)
 add_library(systememulator STATIC ${systememulator_SRCS})
+install(TARGETS systememulator RUNTIME DESTINATION bin)
 
 target_link_libraries(systememulator
     pinouts

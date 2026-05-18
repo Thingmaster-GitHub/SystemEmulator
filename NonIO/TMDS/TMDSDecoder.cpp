@@ -9,7 +9,7 @@ TMDSDecoder::TMDSDecoder(TMDS* pins,Clock* c)
     m_dataStream=new QByteArray();
     m_clock=c;
     TMDSReceiver* r = new TMDSReceiver(this,pins);
-    addConnection(r);
+    addConnection(r);//index 0
     m_index=0;
 }
 
@@ -55,6 +55,13 @@ void TMDSDecoder::processClockPlus()
     m_dataStream->append(m_data.bits());
     if(m_data.size()==8)
         m_data.resize(10);
+
+
     m_index++;
 
 }
+void TMDSDecoder::clearData()
+{
+    m_dataStream=new QByteArray();
+}
+

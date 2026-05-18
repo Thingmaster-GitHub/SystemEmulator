@@ -18,7 +18,6 @@ namespace components
         void processClockMinus() override{}
 
         void setInput(const char* input);
-        bool ready();
     protected:
         bool xorop(QBitArray tmp,int i) override;
         bool xnorop(QBitArray tmp,int i) override;
@@ -32,7 +31,6 @@ namespace components
         int getDistanceResult(QBitArray b);
         //returns true if option 2 should be used (xnor)
         bool chooseOutput();
-        //TODO give this a data stream to process across clock cycles!
 
     };
 }

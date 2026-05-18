@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NonIOComponent.h"
+#include "../NonIOComponent.h"
 #include <QBitArray>
 #include <QByteArray>
 namespace components

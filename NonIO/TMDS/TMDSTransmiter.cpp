@@ -7,10 +7,6 @@ void TMDSTransmiter::setInput(QBitArray data)
     m_data=data;
     m_index=0;
 }
-bool TMDSTransmiter::ready()
-{
-    return m_index>=10;
-}
 void TMDSTransmiter::processClockPlus()
 {
 

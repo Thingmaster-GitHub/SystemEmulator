@@ -6,7 +6,7 @@ using namespace components;
 int main(int argc, char *argv[])
 {
     Component *base = new MainBoard();
-    MachineControler* m = new MachineControler(base->getClock());
+    MachineControler* m = new MachineControler();
     m->runLoop(base);
     qDebug()<<"hi :)";
     return 0;

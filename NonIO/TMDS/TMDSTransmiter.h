@@ -11,7 +11,5 @@ namespace components
         void processClockPlus() override;
         void processClockMinus() override{}
         void setInput(QBitArray data);
-        //weather the entire sequence has been tranmited
-        bool ready();
     };
 }

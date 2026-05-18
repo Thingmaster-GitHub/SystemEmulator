@@ -14,7 +14,8 @@ namespace components
         void processClockPlus() override;
         void processClockMinus() override{}
         const char* getOutput();
-        void setInput(QBitArray input);//temporary
+        void setInput(QBitArray input);
+        void clearData();
     protected:
         bool xorop(QBitArray tmp,int i) override;
         bool xnorop(QBitArray tmp,int i) override;

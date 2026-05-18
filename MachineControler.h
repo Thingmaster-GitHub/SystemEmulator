@@ -8,12 +8,8 @@ namespace components
     class MachineControler
     {
     public:
-        MachineControler(Clock *c) : m_clock(c) {}
+        MachineControler() {}
 
         void runLoop(Component *base);
-
-
-    private:
-    Clock* m_clock;
     };
 }

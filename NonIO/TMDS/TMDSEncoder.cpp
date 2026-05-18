@@ -85,10 +85,6 @@ TMDSTransmiter* TMDSEncoder::getTransmiter()
 {
     return dynamic_cast<TMDSTransmiter*>(m_IO->at(0));
 }
-bool TMDSEncoder::ready()
-{
-    return m_index==m_dataStream->size();
-}
 void TMDSEncoder::processClockPlus()
 {
     char tmp;

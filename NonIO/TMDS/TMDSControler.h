@@ -2,7 +2,10 @@
 //sort of a virtual cable with built in encoding
 #pragma once
 
-#include "NonIOComponent.h"
+#include "../NonIOComponent.h"
+#include "../../Pinouts/TMDS/TMDS.h"
+#include "TMDSEncoder.h"
+#include "TMDSDecoder.h"
 
 namespace components
 {
@@ -12,8 +15,8 @@ namespace components
             TMDSControler(Clock* c);
             const char* getOutput();
             void setInput(const char* input);
-            bool ready();
 
+            void clearData();
             void processClockPlus() override{}
             void processClockMinus() override{}
     };

@@ -3,9 +3,9 @@
 //definitly io -y er than other TMDS non-IO components
 #pragma once
 
-#include "NonIOComponent.h"
+#include "../NonIOComponent.h"
 #include "TMDSProcessor.h"
-#include "../Pinouts/TMDS.h"
+#include "../../Pinouts/TMDS/TMDS.h"
 namespace components
 {
     class TMDSComunicator : public NonIOComponent

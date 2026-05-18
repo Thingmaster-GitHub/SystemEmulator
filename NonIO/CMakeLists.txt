@@ -1,12 +1,7 @@
+add_subdirectory(TMDS/)
+
 set(nonio_SRCS
-    TMDSEncoder.cpp
-    NonIOComponent.cpp
-    TMDSControler.cpp
-    TMDSEncoder.cpp
-    TMDSDecoder.cpp
-    TMDSComunicator.cpp
-    TMDSTransmiter.cpp
-    TMDSReceiver.cpp
+        NonIOComponent.cpp
 )
 find_package(Qt6 REQUIRED COMPONENTS Core Widgets Test Qml Quick)
 
