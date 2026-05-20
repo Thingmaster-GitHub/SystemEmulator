@@ -1,5 +1,5 @@
 add_subdirectory(TMDS/)
-
+add_subdirectory(DisplayId/)
 set(nonio_SRCS
         NonIOComponent.cpp
 )
