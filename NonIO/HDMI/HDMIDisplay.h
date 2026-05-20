@@ -1,0 +1,6 @@
+namespace components
+{
+    class HDMIDisplay
+    {
+    };
+}
