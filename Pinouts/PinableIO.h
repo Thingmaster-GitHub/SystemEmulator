@@ -4,7 +4,7 @@
 #include <QVector>
 //a more IO focused virtual component subclass
 //intended specifically for pin behavior
-namespace components
+namespace system_emulator
 {
     class PinableIO : public Component
     {

@@ -3,7 +3,7 @@
 
 #include "Component.h"
 #include <QDebug>
-namespace components
+namespace system_emulator
 {
     class MachineControler
     {

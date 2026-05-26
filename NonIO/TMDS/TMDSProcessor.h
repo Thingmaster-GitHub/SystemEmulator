@@ -3,7 +3,7 @@
 #include "../NonIOComponent.h"
 #include <QBitArray>
 #include <QByteArray>
-namespace components
+namespace system_emulator
 {
     class TMDSProcessor : public NonIOComponent
     {

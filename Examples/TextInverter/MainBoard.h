@@ -8,7 +8,7 @@
 
 #include <QTextStream>
 //designed to be the first board initialized
-namespace components
+namespace system_emulator
 {
     class MainBoard : public Component
     {

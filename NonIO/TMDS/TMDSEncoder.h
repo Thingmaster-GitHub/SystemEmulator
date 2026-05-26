@@ -8,7 +8,7 @@
 #include <QtNumeric>
 #include <QDebug>
 #include <QByteArray>
-namespace components
+namespace system_emulator
 {
     class TMDSEncoder : public TMDSProcessor
     {

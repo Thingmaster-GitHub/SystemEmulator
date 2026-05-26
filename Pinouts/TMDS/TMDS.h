@@ -3,7 +3,7 @@
 #include "../PinableIO.h"
 
 //transition-minimized differential signaling
-namespace components
+namespace system_emulator
 {
     class TMDS : public PinableIO
     {

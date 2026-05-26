@@ -1,5 +1,5 @@
 #include "MainBoard.h"
-using namespace components;
+using namespace system_emulator;
 
 MainBoard::MainBoard()
 {

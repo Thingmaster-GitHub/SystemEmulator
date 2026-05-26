@@ -5,7 +5,7 @@
 #include "TMDSReceiver.h"
 #include <QVector>
 #include <QDebug>
-namespace components
+namespace system_emulator
 {
     class TMDSDecoder : public TMDSProcessor
     {

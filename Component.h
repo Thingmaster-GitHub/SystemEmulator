@@ -7,7 +7,7 @@
 
 #include "Clock.h"
 #include <QDebug>
-namespace components
+namespace system_emulator
 {
     class Component
     {

@@ -1,6 +1,6 @@
 #include "TMDSReceiver.h"
 
-using namespace components;
+using namespace system_emulator;
 
 void TMDSReceiver::processClockPlus()
 {

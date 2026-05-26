@@ -1,6 +1,7 @@
 namespace system_emulator
 {
-    class HDMIDisplay
+    class DisplayIdWriter
     {
+
     };
 }

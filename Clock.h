@@ -2,7 +2,7 @@
 //has a way of simulating different clock speeds by ustilizing their ratios
 #pragma once
 #include <QDebug>
-namespace components
+namespace system_emulator
 {
     class Clock
     {

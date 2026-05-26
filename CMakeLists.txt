@@ -4,6 +4,7 @@ cmake_minimum_required(VERSION 3.16)
 set(systememulator_SRCS
     MachineControler.cpp
 )
+set(EXPORT_COMPILE_COMMANDS ON)
 project(systememulator LANGUAGES CXX)
 add_subdirectory(Pinouts/)
 add_subdirectory(NonIO/)

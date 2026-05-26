@@ -1,5 +1,5 @@
 #include "MachineControler.h"
-using namespace components;
+using namespace system_emulator;
 
 void MachineControler::runLoop(Component* base)
 {

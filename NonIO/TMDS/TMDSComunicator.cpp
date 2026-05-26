@@ -1,6 +1,6 @@
 #include "TMDSComunicator.h"
 
-using namespace components;
+using namespace system_emulator;
 
 TMDSComunicator::TMDSComunicator(TMDSProcessor* connection,TMDS* pins)
 {

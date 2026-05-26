@@ -1,5 +1,5 @@
 #include "TMDS.h"
-using namespace components;
+using namespace system_emulator;
 
 void TMDS::initialize()
 {

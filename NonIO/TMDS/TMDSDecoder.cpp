@@ -1,5 +1,5 @@
 #include "TMDSDecoder.h"
-using namespace components;
+using namespace system_emulator;
 TMDSDecoder::TMDSDecoder(TMDS* pins,Clock* c)
 {
     char t = (char)0;

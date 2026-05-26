@@ -2,7 +2,7 @@
 
 #include "TMDSComunicator.h"
 
-namespace components
+namespace system_emulator
 {
     class TMDSTransmiter : public TMDSComunicator
     {

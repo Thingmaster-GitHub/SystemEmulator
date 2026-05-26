@@ -1,6 +1,6 @@
 #include "TMDSTransmiter.h"
 
-using namespace components;
+using namespace system_emulator;
 
 void TMDSTransmiter::setInput(QBitArray data)
 {

@@ -1,5 +1,5 @@
 #include "TMDSEncoder.h"
-using namespace components;
+using namespace system_emulator;
 
 TMDSEncoder::TMDSEncoder(TMDS* pins,Clock* c)
 {

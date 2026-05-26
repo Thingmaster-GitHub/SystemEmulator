@@ -1,5 +1,5 @@
 #include "NonIOComponent.h"
-using namespace components;
+using namespace system_emulator;
 
 int NonIOComponent::findIOComponent(int n)
 {

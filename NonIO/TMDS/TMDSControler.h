@@ -7,7 +7,7 @@
 #include "TMDSEncoder.h"
 #include "TMDSDecoder.h"
 
-namespace components
+namespace system_emulator
 {
     class TMDSControler : public NonIOComponent
     {

@@ -2,7 +2,7 @@
 
 #include "../Component.h"
 #include "../Pinouts/PinableIO.h"
-namespace components
+namespace system_emulator
 {
     class NonIOComponent : public Component
     {

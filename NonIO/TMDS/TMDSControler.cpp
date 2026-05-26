@@ -1,6 +1,6 @@
 #include "TMDSControler.h"
 
-using namespace components;
+using namespace system_emulator;
 
 TMDSControler::TMDSControler(Clock* c)
 {

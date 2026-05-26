@@ -2,7 +2,7 @@
 #include "../../MachineControler.h"
 #include "../../Component.h"
 #include "MainBoard.h"
-using namespace components;
+using namespace system_emulator;
 int main(int argc, char *argv[])
 {
     Component *base = new MainBoard();
