@@ -1,5 +1,6 @@
 add_subdirectory(TMDS/)
 add_subdirectory(DisplayID/)
+add_subdirectory(HDMI/)
 set(nonio_SRCS
         NonIOComponent.cpp
 )

@@ -6,40 +6,40 @@ QByteArray DisplayIdData::getData()
 {
     return QByteArray();//TODO fix me!
 }
-DisplayIDDataBlock DisplayIdData::getDataBlock(QByteArray data)
+DisplayIDDataBlock* DisplayIdData::getDataBlock(QByteArray data)
 {
-    switch(data.at(0))
+    switch(data.at(4))
     {
         case (char)0x20:
-            return BlockProductIdentification(data);
+            return new BlockProductIdentification(data);
         case (char)0x21:
-            return BlockDisplayParameters(data);
+            return new BlockDisplayParameters(data);
         case (char)0x22:
-            return BlockDetailedTiming(data);
+            return new BlockDetailedTiming(data);
         case (char)0x23:
-            return BlockEnumeratedTimingCode(data);
+            return new BlockEnumeratedTimingCode(data);
         case (char)0x24:
-            return BlockFormulaBasedTiming(data);
+            return new BlockFormulaBasedTiming(data);
         case (char)0x25:
-            return BlockDynamicVideoTimingRangeLimits(data);
+            return new BlockDynamicVideoTimingRangeLimits(data);
         case (char)0x26:
-            return BlockDisplayInterfaceFeatures(data);
+            return new BlockDisplayInterfaceFeatures(data);
         case (char)0x27:
-            return BlockStereoDisplayInterface(data);
+            return new BlockStereoDisplayInterface(data);
         case (char)0x28:
-            return BlockTiledDisplayTechnology(data);
+            return new BlockTiledDisplayTechnology(data);
         case (char)0x29:
-            return BlockContainerID(data);
+            return new BlockContainerID(data);
         case (char)0x7E:
-            return BlockVendorSpecific(data);
+            return new BlockVendorSpecific(data);
         case (char)0x81:
-            return BlockCTADisplayID(data);
+            return new BlockCTADisplayID(data);
         default:
         {
-            if(data.at(0)<0x20)
-                return BlockReserved(data);
+            if(data.at(4)<0x20)
+                return new BlockReserved(data);
             else
-                return BlockInvalid(data);
+                return new BlockInvalid(data);
         }
 
 

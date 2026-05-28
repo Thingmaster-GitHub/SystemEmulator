@@ -1,4 +1,3 @@
-//0x20
 #pragma once
 
 #include "DisplayIDDataBlock.h"

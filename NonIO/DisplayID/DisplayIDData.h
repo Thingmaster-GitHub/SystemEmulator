@@ -18,7 +18,7 @@
 #include <QByteArray>
 #include <QVector>
 //a way of both creating the binary DisplayId and reading its values
-//will not allow for editing values within, though it will allow removing data blocks entirely
+//will not allow for editing subclass specific values within, though it will allow removing data blocks entirely
 //very little error checking for simplicity
 
 namespace system_emulator
@@ -35,10 +35,15 @@ namespace system_emulator
         QByteArray getData();
         void addBlock(DisplayIDDataBlock block);
         QString getDataUI();
+        //sets the primary use case
+        void setUseCase(int useage);
+
+
     private:
+
         //returns a data block initialized with the data given
         //pre - must ony contain data starting at the data block's header
-        DisplayIDDataBlock getDataBlock(QByteArray data);
+        DisplayIDDataBlock* getDataBlock(QByteArray data);
         QVector<DisplayIDDataBlock*>* m_data;
     };
 }
