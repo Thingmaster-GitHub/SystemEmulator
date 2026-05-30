@@ -8,10 +8,8 @@ namespace system_emulator
     {
     public:
         DisplayIDDataBlock();
-        DisplayIDDataBlock(QByteArray data){}
 
         int getDataIndexEnd();//returns the end index of the input data
-        virtual QString getDataUI();//returns the human readable data
 
         quint8 getUsage()
         {
@@ -28,12 +26,10 @@ namespace system_emulator
         void setUsage(quint8 usage)
         {
             m_usage=usage;
-            calculateCheckSum();
         }
         void setExtentionCount(quint8 count)
         {
             m_extentionCount=count;
-            calculateCheckSum();
         }
 
 
@@ -44,15 +40,14 @@ namespace system_emulator
         virtual void getSubclassData(QByteArray* data);
 
         void initialize(QByteArray data);
-
+        void initialize();
         void setBlockSize(quint8 size)
         {
             m_blockSize=size;
-            calculateCheckSum();
         }
 
     private:
-        void calculateCheckSum();
+        quint8 calculateCheckSum(QByteArray data);
         //byte 2
         quint8 m_extentionCount;
         //usage (this is required for no clear reason)
@@ -61,7 +56,7 @@ namespace system_emulator
         //byte 1
         quint8 m_blockSize;
         //byte m_blockSize+4
-        QBitArray m_checksum;
+        quint8 m_checksum;
 
     };
 }
