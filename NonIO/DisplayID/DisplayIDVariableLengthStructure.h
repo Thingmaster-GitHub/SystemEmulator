@@ -17,30 +17,60 @@
 
 #include <QByteArray>
 #include <QVector>
-//a way of both creating the binary DisplayId and reading its values
-//will not allow for editing subclass specific values within, though it will allow removing data blocks entirely
-//very little error checking for simplicity
 
 namespace system_emulator
 {
-    class DisplayIdData
+    class DisplayIDVariableLengthStructure
     {
     public:
         //default constuctor
-        DisplayIdData();
+        DisplayIDVariableLengthStructure();
 
         //initializes with the data given
-        DisplayIdData(QByteArray data);
+        DisplayIDVariableLengthStructure(QByteArray data);
         //returns the entire processed data packet
         QByteArray getData();
         void addBlock(DisplayIDDataBlock block);
         QString getDataUI();
-        //sets the primary use case
-        void setUseCase(int useage);
 
+        void setBlockSize(quint8 size)
+        {
+            m_blockSize=size;
+        }
+        quint8 getUsage()
+        {
+            return m_usage;
+        }
+        quint8 getExtetionCount()
+        {
+            return m_extentionCount;
+        }
+        quint8 getblockSize()
+        {
+            return m_blockSize;
+        }
+        void setUsage(quint8 usage)
+        {
+            m_usage=usage;
+        }
+        void setExtentionCount(quint8 count)
+        {
+            m_extentionCount=count;
+        }
 
     private:
-
+        quint8 calculateCheckSum(QByteArray data);
+        //byte 2
+        quint8 m_extentionCount;
+        //usage (this is required for no clear reason)
+        quint8 m_usage;
+        //length of variable length data block
+        //byte 1
+        quint8 m_blockSize;
+        //byte m_blockSize+4
+        quint8 m_checksum;
+        //sets the primary use case
+        void setUseCase(int useage);
         //returns a data block initialized with the data given
         //pre - must ony contain data starting at the data block's header
         DisplayIDDataBlock* getDataBlock(QByteArray data);

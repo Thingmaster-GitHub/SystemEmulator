@@ -1,14 +1,14 @@
-#include "DisplayIDData.h"
+#include "DisplayIDVariableLengthStructure.h"
 
 using namespace system_emulator;
 
-QByteArray DisplayIdData::getData()
+QByteArray DisplayIDVariableLengthStructure::getData()
 {
     return QByteArray();//TODO fix me!
 }
-DisplayIDDataBlock* DisplayIdData::getDataBlock(QByteArray data)
+DisplayIDDataBlock* DisplayIDVariableLengthStructure::getDataBlock(QByteArray data)
 {
-    switch(data.at(4))
+    switch(data.at(0))
     {
         case (char)0x20:
             return new BlockProductIdentification(data);
@@ -36,7 +36,7 @@ DisplayIDDataBlock* DisplayIdData::getDataBlock(QByteArray data)
             return new BlockCTADisplayID(data);
         default:
         {
-            if(data.at(4)<0x20)
+            if(data.at(0)<0x20)
                 return new BlockReserved(data);
             else
                 return new BlockInvalid(data);
@@ -44,4 +44,17 @@ DisplayIDDataBlock* DisplayIdData::getDataBlock(QByteArray data)
 
 
     }
+}
+quint8 DisplayIDVariableLengthStructure::calculateCheckSum(QByteArray data)
+{
+    quint64 sum=0;
+    for(int i=0;i<m_blockSize+4;i++)
+    {
+        sum+=data.at(i);
+    }
+    return (256 - (sum%256))%256;
+}
+void DisplayIDVariableLengthStructure::addBlock(DisplayIDDataBlock block)
+{
+
 }

@@ -22,5 +22,15 @@ BlockProductIdentification::BlockProductIdentification(QByteArray data)
 BlockProductIdentification::BlockProductIdentification()
 {
     initialize();
-
+    m_OUI=0;
+    m_productID=0;
+    m_serialNumber=0;
+    m_weekManufacture=0;
+    m_yearManufacture=0;
+    m_productName=QString("");
+    correctPayloadSizeVars();
+}
+void BlockProductIdentification::correctPayloadSizeVars()
+{
+    m_nameLength=m_productName.size();
 }
