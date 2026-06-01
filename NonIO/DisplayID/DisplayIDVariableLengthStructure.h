@@ -65,9 +65,11 @@ namespace system_emulator
 
     private:
         quint8 calculateCheckSum(QByteArray data);
-        //byte 2
+
+        //byte 3
         quint8 m_extensionCount;
-        //usage (this is required for no clear reason)
+
+        //usage, byte 2
         quint8 m_usage;
         //length of variable length data block
         //byte 1
