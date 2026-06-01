@@ -2,9 +2,50 @@
 
 using namespace system_emulator;
 
+DisplayIDVariableLengthStructure::DisplayIDVariableLengthStructure()
+{
+    m_data=new QVector<DisplayIDDataBlock*>();
+    m_dataBlockSize=0;
+    m_extensionCount=0;
+    m_usage=2;
+}
+DisplayIDVariableLengthStructure::DisplayIDVariableLengthStructure(QByteArray data)
+{
+    m_dataBlockSize=data.at(1);
+    m_usage=data.at(2);
+    m_extensionCount=data.at(3);
+    int byteOffset=4;
+    while(byteOffset<m_dataBlockSize+3)//+3 for initial bytes
+    {
+        DisplayIDDataBlock* tmp = getDataBlock(data.slice(byteOffset));
+        byteOffset+=tmp->getSize();
+        m_data->append(tmp);
+    }
+    if(calculateCheckSum(data.slice(0,data.size()-2))!=data.at(data.size()-1))//minus two to exclude precalculated checksum byte
+    {
+        //whatever code transfered this data has failed
+        //TODO actually impliment what this does
+    }
+
+}
 QByteArray DisplayIDVariableLengthStructure::getData()
 {
-    return QByteArray();//TODO fix me!
+    QByteArray output;
+    //variable length structure data
+    output.append(0x20);//byte 0
+    output.append(m_dataBlockSize);//byte 1
+    output.append(m_usage);//byte 2
+    output.append(m_extensionCount);//byte 3
+
+    //data blocks
+    for(int i=0;i<m_data->size();i++)
+    {
+        output += m_data->at(i)->getData();
+    }
+
+    //and finally, the checksum
+    output.append(calculateCheckSum(output));
+    return output;
 }
 DisplayIDDataBlock* DisplayIDVariableLengthStructure::getDataBlock(QByteArray data)
 {
@@ -48,7 +89,7 @@ DisplayIDDataBlock* DisplayIDVariableLengthStructure::getDataBlock(QByteArray da
 quint8 DisplayIDVariableLengthStructure::calculateCheckSum(QByteArray data)
 {
     quint64 sum=0;
-    for(int i=0;i<m_blockSize+4;i++)
+    for(int i=0;i<m_dataBlockSize+4;i++)
     {
         sum+=data.at(i);
     }
@@ -57,4 +98,5 @@ quint8 DisplayIDVariableLengthStructure::calculateCheckSum(QByteArray data)
 void DisplayIDVariableLengthStructure::addBlock(DisplayIDDataBlock* block)
 {
     m_data->append(block);
+    m_dataBlockSize+=block->getSize();
 }

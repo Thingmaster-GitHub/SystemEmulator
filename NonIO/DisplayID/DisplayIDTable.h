@@ -12,8 +12,11 @@ namespace system_emulator
         void addBlockData(DisplayIDDataBlock* data);
         //returns true if it has been removed, false otherwise
         bool removeVarLengthStructure(int index);
+        QString assembleTableWhole();
         DisplayIDDataBlock* getDataBlock(int baseStructure,int dataBlock);
     private:
+        //adds an extention section initialized with the given data block
+        void addExtensionSection(DisplayIDDataBlock* data);
         QVector<DisplayIDVariableLengthStructure*>* m_data;
     };
 }

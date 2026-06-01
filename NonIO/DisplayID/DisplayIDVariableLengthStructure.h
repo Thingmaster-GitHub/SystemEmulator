@@ -37,38 +37,44 @@ namespace system_emulator
         {
             return m_usage;
         }
-        quint8 getExtetionCount()
+        quint8 getExtesionCount()
         {
-            return m_extentionCount;
+            return m_extensionCount;
         }
         quint8 getDataBlockSize()
         {
             return m_dataBlockSize;
         }
+        //sets the primary use case
         void setUsage(quint8 usage)
         {
             m_usage=usage;
         }
-        void setExtentionCount(quint8 count)
+        void setExtensionCount(quint8 count)
         {
-            m_extentionCount=count;
+            m_extensionCount=count;
+        }
+        void iterateExtensionCount()
+        {
+            m_extensionCount++;
+        }
+        void decrementExtensionCount()
+        {
+            m_extensionCount--;
         }
 
     private:
         quint8 calculateCheckSum(QByteArray data);
         //byte 2
-        quint8 m_extentionCount;
+        quint8 m_extensionCount;
         //usage (this is required for no clear reason)
         quint8 m_usage;
         //length of variable length data block
         //byte 1
         quint8 m_dataBlockSize;
-        //byte m_blockSize+4
-        quint8 m_checksum;
-        //sets the primary use case
-        void setUseCase(int useage);
+
         //returns a data block initialized with the data given
-        //pre - must ony contain data starting at the data block's header
+        //pre - must ony contain data starting at the data block's block tag
         DisplayIDDataBlock* getDataBlock(QByteArray data);
         QVector<DisplayIDDataBlock*>* m_data;
     };
