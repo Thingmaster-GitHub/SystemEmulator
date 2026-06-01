@@ -1,6 +1,24 @@
 #include "DisplayIDTable.h"
 using namespace system_emulator;
+DisplayIDTable::DisplayIDTable(QByteArray data) : m_data(new QVector<DisplayIDVariableLengthStructure*>())
+{
+    //create base variable length structure
+    {
+        DisplayIDVariableLengthStructure* tmp = new DisplayIDVariableLengthStructure(data);
+        m_data->append(tmp);
+    }
 
+    //loop through all extensions
+    int byteOffset=m_data->at(0)->getDataBlockSize()+4;//+4 for non data block bytes
+
+    for(int i=0;i<m_data->at(0)->getExtesionCount();i++)
+    {
+        DisplayIDVariableLengthStructure* tmp = new DisplayIDVariableLengthStructure(data.slice(byteOffset));
+        byteOffset+=tmp->getDataBlockSize()+4;
+        m_data->append(tmp);
+    }
+    //hopefully no index off by one errors?
+}
 void DisplayIDTable::addBlockData(DisplayIDDataBlock* data)
 {
     for(int i=0;i<m_data->size();i++)
