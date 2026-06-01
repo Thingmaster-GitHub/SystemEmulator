@@ -30,13 +30,9 @@ namespace system_emulator
         DisplayIDVariableLengthStructure(QByteArray data);
         //returns the entire processed data packet
         QByteArray getData();
-        void addBlock(DisplayIDDataBlock block);
+        void addBlock(DisplayIDDataBlock* block);
         QString getDataUI();
 
-        void setBlockSize(quint8 size)
-        {
-            m_blockSize=size;
-        }
         quint8 getUsage()
         {
             return m_usage;
@@ -45,9 +41,9 @@ namespace system_emulator
         {
             return m_extentionCount;
         }
-        quint8 getblockSize()
+        quint8 getDataBlockSize()
         {
-            return m_blockSize;
+            return m_dataBlockSize;
         }
         void setUsage(quint8 usage)
         {
@@ -66,7 +62,7 @@ namespace system_emulator
         quint8 m_usage;
         //length of variable length data block
         //byte 1
-        quint8 m_blockSize;
+        quint8 m_dataBlockSize;
         //byte m_blockSize+4
         quint8 m_checksum;
         //sets the primary use case

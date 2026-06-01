@@ -54,7 +54,7 @@ quint8 DisplayIDVariableLengthStructure::calculateCheckSum(QByteArray data)
     }
     return (256 - (sum%256))%256;
 }
-void DisplayIDVariableLengthStructure::addBlock(DisplayIDDataBlock block)
+void DisplayIDVariableLengthStructure::addBlock(DisplayIDDataBlock* block)
 {
-
+    m_data->append(block);
 }
