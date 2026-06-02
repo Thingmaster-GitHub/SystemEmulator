@@ -11,16 +11,16 @@ void DisplayIDDataBlock::initialize()
     m_byteOne=QBitArray(0);
     m_payloadSize=0;
 }
-QByteArray DisplayIDDataBlock::getDataPartial()
+QByteArray DisplayIDDataBlock::getData()
 {
     QByteArray output = QByteArray();
 
     output.append(m_byteOne.bits());
     output.append(m_payloadSize);
 
-    return output;
+    return output+getDataPartial();
 }
 QString DisplayIDDataBlock::getUIData()
 {
-    return QString("byte one: %1").arg(m_byteOne.bits()) + QString("\npayload size: %1").arg(m_payloadSize);
+    return QString("byte one: %1").arg(m_byteOne.bits()) + QString("\npayload size: %1 +\n").arg(m_payloadSize)+getUIDataPartial();
 }

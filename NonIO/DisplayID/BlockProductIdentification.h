@@ -11,6 +11,8 @@ namespace system_emulator
         BlockProductIdentification();
         BlockProductIdentification(QByteArray data);
 
+        QByteArray getDataPartial() override;
+        QString getUIDataPartial() override;
         void setOUI(quint32 OUI)
         {
             m_OUI=QByteArray::number(OUI);
@@ -40,7 +42,6 @@ namespace system_emulator
     private:
         //corrects the stored size of the payload
         void correctPayloadSizeVars();
-        quint8 m_numPayloadBytes;
 
         QByteArray m_OUI;//             3 bytes, Organizationally Unique Identifier
         QByteArray m_productID;//       2 bytes

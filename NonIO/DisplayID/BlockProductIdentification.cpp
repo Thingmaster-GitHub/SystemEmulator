@@ -6,9 +6,7 @@ BlockProductIdentification::BlockProductIdentification(QByteArray data)
 {
     initialize(data);
     //now onto class specific functionality
-    //all bytes must be read relitive to the 4 proceeding bytes
-    //in the reference page, this means to add 4 to listed indices
-    m_numPayloadBytes   =   data.at(2);         //2
+
     m_OUI               =   data.sliced(3,3);   //3, 3 bytes
     m_productID         =   data.sliced(6,2);   //6, 2 bytes
     m_serialNumber      =   data.sliced(8,4);   //8, 4 bytes
@@ -16,7 +14,7 @@ BlockProductIdentification::BlockProductIdentification(QByteArray data)
     m_yearManufacture   =   data.at(13);        //13
     m_nameLength        =   data.at(14);        //14
 
-    m_productName       =   data.sliced(15,14+m_nameLength); //15 +4, 15 -1 + m_nameLength
+    m_productName       =   data.sliced(15,14+m_nameLength); //15 , 15 -1 + m_nameLength
 }
 
 BlockProductIdentification::BlockProductIdentification()
@@ -33,5 +31,30 @@ BlockProductIdentification::BlockProductIdentification()
 void BlockProductIdentification::correctPayloadSizeVars()
 {
     m_nameLength=m_productName.size();
-    m_numPayloadBytes=12+m_nameLength;
+    m_payloadSize=12+m_nameLength;//TODO make sure this is correct
+}
+QByteArray BlockProductIdentification::getDataPartial()
+{
+    QByteArray output = QByteArray();
+    output.append(m_OUI);
+    output.append(m_productID);
+    output.append(m_serialNumber);
+    output.append(m_weekManufacture);
+    output.append(m_yearManufacture);
+    output.append(m_nameLength);
+    output.append(m_productName.toLocal8Bit());
+
+    return output;
+}
+QString BlockProductIdentification::getUIDataPartial()
+{
+    QString output = "";
+    output+="OUI: "+QString::number(m_OUI.toInt());
+    output+="product id: "+QString::number(m_productID.toInt());
+    output+="serial number: "+QString::number(m_serialNumber.toInt());
+    output+="week of manufacture: "+QString::number(m_weekManufacture);
+    output+="year of manufacture: "+QString::number(m_yearManufacture+2000);
+    output+="length of product name: "+QString::number(m_nameLength);
+    output+="product name: "+m_productName;
+    return output;
 }

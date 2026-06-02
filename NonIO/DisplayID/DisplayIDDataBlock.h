@@ -9,19 +9,18 @@ namespace system_emulator
     {
     public:
         DisplayIDDataBlock();
+        QString getUIData();
+        QByteArray getData();
         //returns the human readable form of the given data
-        virtual QString getUIData();
 
-        virtual QByteArray getData();
         //returns the data block size in bytes
         int getSize()
         {
             return m_payloadSize+3;
         }
     protected:
-        //returns the begining of the ui data shared by all data blocks
-        QString getUIDataPartial();
-        QByteArray getDataPartial();
+        virtual QString getUIDataPartial();
+        virtual QByteArray getDataPartial();
 
         void initialize(QByteArray data);
         void initialize();
